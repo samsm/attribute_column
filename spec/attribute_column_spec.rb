@@ -34,5 +34,13 @@ describe AttributeColumn do
       columned_class.attribute_column(:title, :string)
       columned.column_for_attribute(:title).type.must_equal :string
     end
+
+    it "should be tollerant of string/sybol mismatches" do
+      columned_class.attribute_column(:b, :binary)
+      columned_class.attribute_column("d", :date)
+
+      columned.column_for_attribute("b").type.must_equal :binary
+      columned.column_for_attribute(:d).type.must_equal :date
+    end
   end
 end
